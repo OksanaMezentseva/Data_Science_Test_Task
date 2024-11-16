@@ -20,8 +20,8 @@ def train_model(train_dataset, test_dataset, tokenizer, label_mapping):
         output_dir="./results",               # Directory to save results
         evaluation_strategy="epoch",          # Evaluate after each epoch
         learning_rate=2e-5,                   # Learning rate
-        per_device_train_batch_size=16,       # Batch size for training
-        per_device_eval_batch_size=16,        # Batch size for evaluation
+        per_device_train_batch_size=4,       # Batch size for training
+        per_device_eval_batch_size=4,        # Batch size for evaluation
         num_train_epochs=3,                   # Number of epochs
         weight_decay=0.01,                    # Regularization parameter
         save_total_limit=2,                   # Keep only the last two checkpoints

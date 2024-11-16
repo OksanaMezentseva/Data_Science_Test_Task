@@ -38,6 +38,13 @@ def main():
     train_dataset = split_data['train']
     test_dataset = split_data['test']
 
+    # Limit the size of datasets for testing purposes
+    train_dataset = train_dataset.select(range(100))  # Use only the first 100 examples for training
+    test_dataset = test_dataset.select(range(100))    # Use only the first 100 examples for testing
+
+    print(f"Training set size: {len(train_dataset)}")
+    print(f"Test set size: {len(test_dataset)}")
+
     # Train the model
     print("Training the model...")
     trainer = train_model(train_dataset, test_dataset, tokenizer, label_mapping)
