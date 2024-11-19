@@ -2,12 +2,13 @@ from transformers import AutoTokenizer, AutoModelForTokenClassification
 import torch
 
 # Load the trained model and tokenizer
-model_dir = "Task_1_NER/model"
-tokenizer = AutoTokenizer.from_pretrained(model_dir)
-model = AutoModelForTokenClassification.from_pretrained(model_dir)
+model_weights = "/home/oks/VSCode_Projects/Data_Science_Test_Task/Task_1_NER/model_weights"
+model_tokenizer = "/home/oks/VSCode_Projects/Data_Science_Test_Task/Task_1_NER/tokenizer"
+tokenizer = AutoTokenizer.from_pretrained(model_tokenizer)
+model = AutoModelForTokenClassification.from_pretrained(model_weights)
 
 # Example sentence for inference
-example_text = "Mount Everest is the tallest mountain in the world."
+example_text = "Mount Kilimanjaro is located in Africa."
 
 # Tokenize the input
 inputs = tokenizer(

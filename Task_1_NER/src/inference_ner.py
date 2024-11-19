@@ -3,9 +3,10 @@ from transformers import AutoTokenizer, AutoModelForTokenClassification
 import torch
 
 # Load the trained model and tokenizer
-model_name = "Task_1_NER/model"
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-model = AutoModelForTokenClassification.from_pretrained(model_name)
+model_weights = "Task_1_NER/model_weights"
+model_tokenizer = "Task_1_NER/tokenizer"
+tokenizer = AutoTokenizer.from_pretrained(model_tokenizer)
+model = AutoModelForTokenClassification.from_pretrained(model_weights)
 
 def predict(text):
     """

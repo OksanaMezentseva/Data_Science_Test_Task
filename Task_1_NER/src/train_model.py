@@ -18,10 +18,10 @@ def train_model(train_dataset, test_dataset, tokenizer, label_mapping):
     # Define training arguments
     training_args = TrainingArguments(
         output_dir="./results",               # Directory to save results
-        evaluation_strategy="epoch",          # Evaluate after each epoch
+        eval_strategy="epoch",                # Evaluate after each epoch
         learning_rate=2e-5,                   # Learning rate
-        per_device_train_batch_size=4,       # Batch size for training
-        per_device_eval_batch_size=4,        # Batch size for evaluation
+        per_device_train_batch_size=8,       # Batch size for training
+        per_device_eval_batch_size=8,        # Batch size for evaluation
         num_train_epochs=3,                   # Number of epochs
         weight_decay=0.01,                    # Regularization parameter
         save_total_limit=2,                   # Keep only the last two checkpoints
@@ -54,8 +54,8 @@ def train_model(train_dataset, test_dataset, tokenizer, label_mapping):
 
     # Save the model and tokenizer
     print("Saving model and tokenizer...")
-    model.save_pretrained("Task_1_NER/model")  # Save model weights
-    tokenizer.save_pretrained("Task_1_NER/model")  # Save tokenizer
+    model.save_pretrained("Task_1_NER/model_weights")  # Save model weights
+    tokenizer.save_pretrained("Task_1_NER/tokenizer")  # Save tokenizer
     print("Model and tokenizer saved.")
 
     return trainer
