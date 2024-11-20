@@ -1,4 +1,10 @@
-kaggle
+matplotlib==3.6.0
+cv2
+os
+glob
+numpy==1.23.4
+pickle5==0.0.11
+shutil
 opencv-python-headless
 rasterio
 opencv-contrib-python>=4.10

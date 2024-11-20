@@ -2,16 +2,16 @@ import os
 import cv2
 import pickle
 import random
-import matplotlib.pyplot as plt
 from image_loader import ImageLoader
 from feature_matcher import FeatureMatcher
+import matplotlib.pyplot as plt
 
 # Paths
 base_dir = os.path.dirname(os.path.abspath(__file__))
-test_images_path = os.path.join(base_dir, "data", "test_images")
-model_path = os.path.join(base_dir, "models", "feature_matcher.pkl")
+test_images_path = os.path.join(os.path.dirname(base_dir), "data/test_images")
+model_path = os.path.join(os.path.dirname(base_dir), "models", "feature_matcher.pkl")
 
-# Load the saved model
+# Load model
 if os.path.exists(model_path):
     with open(model_path, "rb") as f:
         matcher = pickle.load(f)
@@ -19,11 +19,11 @@ if os.path.exists(model_path):
 else:
     raise FileNotFoundError(f"Model not found at {model_path}")
 
-def get_random_images_from_test_images(test_images_path):
+def get_random_test_images(test_images_path):
     """
-    Select two random images from the same tile (folder) in the test images directory.
+    Select two random test images from the same tile (folder).
     """
-    # List all tile folders in test images
+    # List all tile folders
     tile_folders = [os.path.join(test_images_path, folder) for folder in os.listdir(test_images_path) if os.path.isdir(os.path.join(test_images_path, folder))]
     
     if not tile_folders:
@@ -52,26 +52,26 @@ def get_random_images_from_test_images(test_images_path):
 
     return img1, img2
 
-def run_inference():
+def infer_model():
     """
-    Perform feature matching inference using randomly selected images from the test images.
+    Perform inference using the trained feature matcher model on test images.
     """
-    # Get two random images from the same tile in test images
-    img1, img2 = get_random_images_from_test_images(test_images_path)
+    # Get two random test images from the same tile
+    img1, img2 = get_random_test_images(test_images_path)
 
-    # Perform inference (draw matches)
-    print("Running inference...")
+    # Perform inference
+    print("Performing feature matching...")
     matched_img = matcher.draw_matches(img1, img2)
 
     # Display results
     plt.figure(figsize=(15, 8))
     plt.imshow(matched_img)
+    plt.axis('off')
     plt.title("Feature Matching Results")
-    plt.axis("off")
     plt.show()
 
 if __name__ == "__main__":
     try:
-        run_inference()
+        infer_model()
     except Exception as e:
         print(f"Error: {e}")
