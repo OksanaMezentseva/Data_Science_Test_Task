@@ -8,5 +8,9 @@ __pycache__/
 
 Task_1_NER/model/model.safetensors
 optimizer.ptresults/checkpoint-21/model.safetensors
-Task_1_NER/model_weights/model.safetensors
+Task_1_NER/model_weights/
+Task_1_NER/tokenizer/
 results/checkpoint-114/optimizer.pt
+results
+.vscode
+data

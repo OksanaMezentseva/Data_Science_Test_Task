@@ -5,13 +5,18 @@ from data_split import split_dataset
 from train_model import train_model
 from transformers import AutoTokenizer
 from datasets import Dataset
+import os
 
 # Define the main function
 def main():
     """
     Main function to prepare data, train the NER model, and save results.
     """
-    # Define file path to the dataset
+    # Get the current script directory
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    # Define the relative path to the dataset
+    # data_path = os.path.join(current_dir, '../data/mountains_ner.csv')
+    # data_path = os.path.join(current_dir, '../data/mountains_ner.csv')
     dataset_path = "/home/oks/VSCode_Projects/Data_Science_Test_Task/Task_1_NER/data/mountains_ner.csv"
 
     # Load and preprocess the dataset
@@ -39,7 +44,7 @@ def main():
     test_dataset = split_data['test']
 
     # Limit the size of datasets for testing purposes
-    train_dataset = train_dataset.select(range(300))  # Use only the first 100 examples for training
+    train_dataset = train_dataset.select(range(1000))  # Use only the first 100 examples for training
     test_dataset = test_dataset.select(range(100))    # Use only the first 100 examples for testing
 
     print(f"Training set size: {len(train_dataset)}")

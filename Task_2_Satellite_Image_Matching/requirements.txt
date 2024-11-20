@@ -1,0 +1,8 @@
+kaggle
+opencv-python-headless
+rasterio
+opencv-contrib-python>=4.10
+geopandas>=0.14
+rasterio>=1.4
+shapely>=1.8
+GDAL>=3.8
