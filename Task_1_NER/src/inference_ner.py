@@ -22,23 +22,38 @@ def predict(text):
     - text (str): The input text for NER.
     
     Returns:
-    - List of predictions for each token in the input text.
+    - List of tuples with tokens and their predicted labels.
     """
     # Tokenize the input text
-    tokens = tokenizer(text, return_tensors="pt", truncation=True, padding=True)
+    inputs = tokenizer(
+        text,
+        return_tensors="pt",
+        truncation=True,
+        padding=True,
+        is_split_into_words=False
+    )
     
     # Perform inference
     with torch.no_grad():
-        outputs = model(**tokens)
+        outputs = model(**inputs)
     
     # Get predicted labels
-    predictions = outputs.logits.argmax(dim=-1).squeeze().tolist()
-    
+    predictions = torch.argmax(outputs.logits, dim=-1).squeeze().tolist()
+
     # Map predictions back to tokens
-    tokenized_words = tokenizer.tokenize(text)
-    result = list(zip(tokenized_words, predictions))
+    tokens = tokenizer.convert_ids_to_tokens(inputs["input_ids"].squeeze())
+    labels = [model.config.id2label[label] for label in predictions]
     
-    return result
+    # Combine tokens with their corresponding labels
+    result = list(zip(tokens, labels))
+    
+    # Filter out special tokens and subwords
+    filtered_result = []
+    for token, label in result:
+        if token not in tokenizer.all_special_tokens and not token.startswith("##"):
+            filtered_result.append((token, label))
+
+    return filtered_result
 
 # Example usage
 if __name__ == "__main__":

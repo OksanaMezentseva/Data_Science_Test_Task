@@ -13,4 +13,6 @@ Task_1_NER/tokenizer/
 results/checkpoint-114/optimizer.pt
 results
 .vscode
+.idea
 data
+model
