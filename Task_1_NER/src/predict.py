@@ -1,11 +1,18 @@
+import os
 from transformers import AutoTokenizer, AutoModelForTokenClassification
 import torch
 
+# Define paths dynamically
+base_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.abspath(os.path.join(base_dir, ".."))
+model_dir = os.path.join(project_root, "model")
+
 # Load the trained model and tokenizer
-model_weights = "/home/oks/VSCode_Projects/Data_Science_Test_Task/Task_1_NER/model_weights"
-model_tokenizer = "/home/oks/VSCode_Projects/Data_Science_Test_Task/Task_1_NER/tokenizer"
-tokenizer = AutoTokenizer.from_pretrained(model_tokenizer)
-model = AutoModelForTokenClassification.from_pretrained(model_weights)
+if not os.path.exists(model_dir):
+    raise FileNotFoundError(f"Model directory not found at {model_dir}")
+
+tokenizer = AutoTokenizer.from_pretrained(model_dir)
+model = AutoModelForTokenClassification.from_pretrained(model_dir)
 
 # Example sentence for inference
 example_text = "Mount Kilimanjaro is located in Africa."

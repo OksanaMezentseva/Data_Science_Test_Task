@@ -2,14 +2,22 @@ from transformers import AutoTokenizer, AutoModelForTokenClassification
 from datasets import Dataset
 import torch
 from sklearn.metrics import classification_report
+import os
+
+# Define paths dynamically
+base_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.abspath(os.path.join(base_dir, ".."))
+model_path = os.path.join(project_root, "model")
+test_dataset_path = os.path.join(project_root, "data", "test_dataset")
 
 # Load the tokenizer and the model
-model_path = "/path/to/Task_1_NER/model"  
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 model = AutoModelForTokenClassification.from_pretrained(model_path)
 
 # Load the test dataset
-test_dataset = Dataset.load_from_disk("/path/to/test_dataset")
+if not os.path.exists(test_dataset_path):
+    raise FileNotFoundError(f"Test dataset not found at {test_dataset_path}")
+test_dataset = Dataset.load_from_disk(test_dataset_path)
 
 # Label mapping
 label_mapping = {0: "O", 1: "B-MOUNTAIN", 2: "I-MOUNTAIN"}
